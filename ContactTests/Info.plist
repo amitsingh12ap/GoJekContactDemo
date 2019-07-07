@@ -18,5 +18,23 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>gojek-contacts-app.herokuapp.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <false/>
+            </dict>
+            <key>cocoacasts.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>1.0<string/>
+                </dict>
+            </dict>
+        </dict>
 </dict>
 </plist>
