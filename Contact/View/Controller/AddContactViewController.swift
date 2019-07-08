@@ -33,8 +33,7 @@ class AddContactViewController: UIViewController {
             Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactEmptyError)
         }
         else {
-            guard let keyWindow = UIApplication.shared.keyWindow else {return}
-            Utils.showLoading(toViewController: keyWindow)
+            Utils.showLoading(toView: self.view)
             
             let contact = ConactInfo.init(contactId: nil, firstName: contactInfo["First Name"] as? String, lastName: contactInfo["Last Name"] as? String, email: contactInfo["Email"] as? String, phoneNumber: contactInfo["Mobile"] as? String, profileImageUrl: nil, isFavorite: false, createdAt: nil, updatedAt: nil)
             addContactVM.createContact(contactmodel: contact)
@@ -89,6 +88,7 @@ extension AddContactViewController: AddContactProtocol {
             self.perform(#selector(self.showFailedMessage), with: nil, afterDelay: 1)
         }
         else {
+            Utils.removeSpinner(toView: self.view)
             dismiss(animated: true, completion: nil)
         }
     }

@@ -15,6 +15,7 @@ struct Constants {
     static let kOkTitle = "Ok"
     static let kCancelTitle = "Cancel"
     
+    static let kDoneTitle = "Done"
     static let kAlertNotSupportedMessage = "This feature is not supported to your device."
     static let kAlertNotaValidNumber = "Not a valid mobile number."
     static let kAlertMessageSentSuccess = "Your message has been sent."
@@ -32,6 +33,8 @@ struct Constants {
     static let kAlertAddContactEmptyError = "Please provide all details to add contact"
     static let kAlertAddContactEmailError = "Please provide Valid Email Id"
     static let kAlertAddContactMobileError = "Please provide Mobile Number"
+    
+    static let kAlertDeleteContactError = "Failed to delete."
     
     // view related constant
     static let kContactlistCellIdentifire = "ContactCell"

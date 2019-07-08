@@ -30,6 +30,8 @@
 		1D404A4922D1A6A200B98821 /* ContactInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D404A4822D1A6A200B98821 /* ContactInfoModel.swift */; };
 		1D404A4B22D1B0E300B98821 /* ContactDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D404A4A22D1B0E300B98821 /* ContactDetailViewModel.swift */; };
 		1D6CEB0622D2439900C98DE8 /* AddContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0522D2439900C98DE8 /* AddContactViewModel.swift */; };
+		1D6CEB0822D313F400C98DE8 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0722D313F400C98DE8 /* Loader.swift */; };
+		1D6CEB0A22D349A100C98DE8 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0922D349A100C98DE8 /* ApiTest.swift */; };
 		1DB23CF322D1D99700450B2F /* CommonEditableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB23CF222D1D99700450B2F /* CommonEditableCell.swift */; };
 		1DB23CF522D1D9F100450B2F /* DeleteContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB23CF422D1D9F100450B2F /* DeleteContactCell.swift */; };
 		1DB23CF722D1E3BB00450B2F /* CommonProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB23CF622D1E3BB00450B2F /* CommonProtocols.swift */; };
@@ -91,6 +93,8 @@
 		1D404A4822D1A6A200B98821 /* ContactInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoModel.swift; sourceTree = "<group>"; };
 		1D404A4A22D1B0E300B98821 /* ContactDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewModel.swift; sourceTree = "<group>"; };
 		1D6CEB0522D2439900C98DE8 /* AddContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewModel.swift; sourceTree = "<group>"; };
+		1D6CEB0722D313F400C98DE8 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		1D6CEB0922D349A100C98DE8 /* ApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
 		1DB23CF222D1D99700450B2F /* CommonEditableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonEditableCell.swift; sourceTree = "<group>"; };
 		1DB23CF422D1D9F100450B2F /* DeleteContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteContactCell.swift; sourceTree = "<group>"; };
 		1DB23CF622D1E3BB00450B2F /* CommonProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProtocols.swift; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 			children = (
 				1D0A5B4022CE5EDF00A0DDC8 /* ContactTests.swift */,
 				1D0A5B4222CE5EDF00A0DDC8 /* Info.plist */,
+				1D6CEB0922D349A100C98DE8 /* ApiTest.swift */,
 			);
 			path = ContactTests;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 		1D0A5B7522CF9FE300A0DDC8 /* Utilis */ = {
 			isa = PBXGroup;
 			children = (
+				1D6CEB0722D313F400C98DE8 /* Loader.swift */,
 				1D0A5B7822CFA11F00A0DDC8 /* Constant.swift */,
 				1D0A5B7622CF9FF300A0DDC8 /* Utils.swift */,
 			);
@@ -565,6 +571,7 @@
 				1D0A5B7122CF916F00A0DDC8 /* Enums.swift in Sources */,
 				1D0A5B6B22CF59CA00A0DDC8 /* ContactsModel.swift in Sources */,
 				1DB23CFB22D2149B00450B2F /* AddContactCell.swift in Sources */,
+				1D6CEB0822D313F400C98DE8 /* Loader.swift in Sources */,
 				1DB23CF922D212E100450B2F /* AddContactViewController.swift in Sources */,
 				1DB23CF322D1D99700450B2F /* CommonEditableCell.swift in Sources */,
 				1D0A5B7922CFA11F00A0DDC8 /* Constant.swift in Sources */,
@@ -575,6 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D6CEB0A22D349A100C98DE8 /* ApiTest.swift in Sources */,
 				1D0A5B4122CE5EDF00A0DDC8 /* ContactTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

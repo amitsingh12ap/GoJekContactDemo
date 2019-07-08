@@ -20,16 +20,14 @@ struct Utils {
         controller.present(alertController, animated: true, completion: nil)
     }
     
-    static func showLoading(toViewController controller: UIWindow) {
-        let alert = UIAlertController(title: nil, message: "Loding...", preferredStyle: .alert)
-        
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.style = UIActivityIndicatorView.Style.gray
-        loadingIndicator.startAnimating();
-        
-        alert.view.addSubview(loadingIndicator)
-        controller.rootViewController?.present(alert, animated: true, completion: nil)
+    static func showLoading(toView view: UIView) {
+        guard let keyWindow = UIApplication.shared.keyWindow else {return}
+        keyWindow.rootViewController?.showSpinner(onView: view)
+    }
+    
+    static func removeSpinner(toView view: UIView){
+        guard let keyWindow = UIApplication.shared.keyWindow else {return}
+        keyWindow.rootViewController?.removeSpinner()
     }
     
     static func validateEmailId(email: String)-> Bool {
@@ -44,4 +42,8 @@ struct Utils {
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
         return phoneTest.evaluate(with: mobile)
     }
+    
+    
+    
+    
 }

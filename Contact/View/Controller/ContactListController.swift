@@ -20,6 +20,7 @@ class ContactListController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         contactModel.delelgate=self
+        Utils.showLoading(toView: self.view)
         contactModel.fetchContactList()
         self.title = Constants.kNavigationTitleContact
     }
@@ -35,12 +36,12 @@ class ContactListController: UIViewController {
 extension ContactListController: ContactListProtocol {
     
     func contactListdidFinishedByGettingContactData() {
-        dismiss(animated: true, completion: nil)
+        Utils.removeSpinner(toView: self.view)
         self.contactlistTable.reloadData()
     }
     
     func failedToGetContacts(_ error: Failure) {
-        dismiss(animated: true, completion: nil)
+        Utils.removeSpinner(toView: self.view)
         Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: error.message)
     }
 }

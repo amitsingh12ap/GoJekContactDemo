@@ -15,9 +15,12 @@ class ContactDetailsViewController: UIViewController {
     var contactId: Int = 0
     var backTitle: String?
     let contactDetailModel = ContactDetailViewModel()
+    var isProfileEditing :Bool = false
+    var isProfileModified :Bool = false
     
     @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var contactDetailTable: UITableView!
     
     override func viewDidLoad() {
@@ -26,6 +29,7 @@ class ContactDetailsViewController: UIViewController {
         titleLabel.text = backTitle
         self.contactDetailTable.tableFooterView = UIView()
         contactDetailModel.delelgate = self
+        Utils.showLoading(toView: self.view)
          self.contactDetailModel.getContactDetail(forContactId: self.contactId)
         
     }
@@ -38,8 +42,30 @@ class ContactDetailsViewController: UIViewController {
     @IBAction func pop(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func Edit(_ sender: Any) {
+    @IBAction func EditClicked(_ sender: UIButton) {
+        if sender.tag == 100 {
+            sender.tag = 101
+            self.changeEditButton(status: true)
+        }
+        else{
+            self.changeEditButton(status: false)
+            sender.tag = 100
+        }
         
+    }
+    func changeEditButton(status: Bool) {
+        if status {
+            self.isProfileEditing = true
+            self.contactDetailTable.reloadData()
+            self.editButton.setTitle("Done", for: .normal)
+            
+        }
+        else{
+            self.isProfileEditing = false
+            self.isProfileModified = false
+            self.contactDetailTable.reloadData()
+            self.editButton.setTitle("Edit", for: .normal)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,32 +77,61 @@ class ContactDetailsViewController: UIViewController {
 // MARK:- ContactDetail Protocol
 extension ContactDetailsViewController: ContactDetailProtocol {
     func contactUpdated(_ status: Bool) {
-        
-        DispatchQueue.main.async {
-            Utils.showAlert(toController: self, withTitle: status ? Constants.kAlertSuccessTitle : Constants.kAlertErrorTitle, withMessage: status ? Constants.kAlertContactUpdateSuccess : Constants.kAlertContactUpdateFailed)
+        Utils.removeSpinner(toView: self.view)
+        if status {
+            if isProfileModified {
+                weak var weakSelf = self
+                DispatchQueue.main.async {
+                    if weakSelf?.getProfileInfo().count == 2 {
+                        weakSelf?.contactDetailModel.updateContactWithInfo(mobileNumber: weakSelf?.getProfileInfo()[0] ?? "", emailID: weakSelf?.getProfileInfo()[1] ?? "" )
+                    }
+                }
+                
+                self.changeEditButton(status: false)
+            }
+            else{
+                contactDetailModel.updateContactFavouriteInfo()
+            }
         }
-    }
-    @objc func showFavouriteAlert(status: Bool) {
         
+        // show alert as per the changes
+        Utils.showAlert(toController: self, withTitle: status ? Constants.kAlertSuccessTitle : Constants.kAlertErrorTitle, withMessage: status ? Constants.kAlertContactUpdateSuccess : Constants.kAlertContactUpdateFailed)
     }
     
     func didFinishByGettingContactInfo() {
+        Utils.removeSpinner(toView: self.view)
         DispatchQueue.main.async {
             self.contactDetailTable.reloadData()
         }
     }
     
     func failedToGetContactInfo(_ error: Failure) {
+        Utils.removeSpinner(toView: self.view)
         DispatchQueue.main.async {
             Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: error.message)
         }
     }
-}
-
-extension ContactDetailsViewController: UITableViewDelegate {
     
+    func contactDeleted(_ status: Bool) {
+        Utils.removeSpinner(toView: self.view)
+        if status {
+            self.navigationController?.popViewController(animated: true)
+        }
+        else{
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertDeleteContactError)
+        }
+    }
 }
-
+// MARK:- Tableview Delegates
+extension ContactDetailsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath == tableView.lastIndexpath() {
+            Utils.showLoading(toView: self.view)
+            contactDetailModel.delegateContact()
+        }
+    }
+}
+// MARK:- Tableview DataSources
 extension ContactDetailsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,7 +158,9 @@ extension ContactDetailsViewController: UITableViewDataSource {
                 cell.sideLabel.text = Constants.kEmailIdTitle
                 cell.editableTxtField.text = contactDetailModel.getEmailId()
             }
-            cell.editableTxtField.isUserInteractionEnabled = false
+            cell.editableTxtField.delegate = self
+            cell.editableTxtField.tag = indexPath.row
+            cell.editableTxtField.isUserInteractionEnabled = isProfileEditing ? true : false
             return cell
         }
         
@@ -116,6 +173,7 @@ extension ContactDetailsViewController: UITableViewDataSource {
 
 extension ContactDetailsViewController: UpdateContact{
     func markFavouriteToContact() {
+        Utils.showLoading(toView: self.view)
         contactDetailModel.markFavourite()
     }
     
@@ -184,5 +242,52 @@ extension ContactDetailsViewController: MFMailComposeViewControllerDelegate {
         default:
             break
         }
+    }
+}
+
+extension ContactDetailsViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.isProfileModified = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text?.isEmpty ?? true {
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactEmptyError)
+            return
+        }
+        else if textField.tag == 1 && !Utils.validateMobile(mobile: textField.text ?? "") {
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactMobileError)
+            return
+        }
+        else if textField.tag == 2 && !Utils.validateEmailId(email: textField.text ?? "") {
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactEmailError)
+            return
+        }
+        else {
+            if(isProfileModified) {
+                // update profile
+                Utils.showLoading(toView: self.view)
+                if self.getProfileInfo().count == 2 {
+                    contactDetailModel.updateContactWithInfo(mobileNumber: self.getProfileInfo()[0], emailID: self.getProfileInfo()[1])
+                }
+            }
+        }
+    }
+    
+    func getProfileInfo()-> [String] {
+        guard  let mobileNumberCell = self.contactDetailTable.cellForRow(at: (IndexPath.init(row: 1, section: 0))) as? CommonEditableCell else {return []}
+        guard let emailIdCell = self.contactDetailTable.cellForRow(at: (IndexPath.init(row: 2, section: 0))) as? CommonEditableCell else {return []}
+        
+        return [mobileNumberCell.editableTxtField.text ?? "" , emailIdCell.editableTxtField.text ?? ""]
+    }
+}
+
+
+extension UITableView {
+    func lastIndexpath() -> IndexPath {
+        let section = max(numberOfSections - 1, 0)
+        let row = max(numberOfRows(inSection: section) - 1, 0)
+        return IndexPath(row: row, section: section)
     }
 }

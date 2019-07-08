@@ -16,6 +16,8 @@ protocol ContactDetailProtocol: class {
     func didFinishByGettingContactInfo()
     func failedToGetContactInfo(_ error: Failure)
     func contactUpdated(_ status: Bool)
+    func contactDeleted(_ status: Bool)
+    
 }
 protocol AddContactProtocol: class {
     func contactCreated(status: Bool)

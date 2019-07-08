@@ -21,6 +21,7 @@ public enum Method {
     case get
     case put
     case post
+    case delete
 }
 
 enum NetworkingError: String, LocalizedError {
@@ -37,6 +38,8 @@ extension Method {
             self = .post
         case "PUT":
             self = .put
+        case "DELETE":
+            self = .delete
         default:
             self = .get
         }
@@ -49,6 +52,7 @@ extension Method: CustomStringConvertible {
         case .get:               return "GET"
         case .post:              return "POST"
         case .put:               return "PUT"
+        case .delete:            return "DELETE"
         }
     }
 }
@@ -80,6 +84,7 @@ extension Requestable {
                 if let error = error {
                     
                     print(error.localizedDescription)
+                    callback(.failure(500))
                     
                 } else if let httpResponse = response as? HTTPURLResponse {
                     
@@ -89,6 +94,9 @@ extension Requestable {
                         
                         callback(.failure(httpResponse.statusCode))
                     }
+                }
+                else {
+                    callback(.failure(500))
                 }
             }
         })

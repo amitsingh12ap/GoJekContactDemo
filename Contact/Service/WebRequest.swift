@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WebRequest: NSObject,Requestable {
+class WebRequest: NSObject, Requestable {
     // fetch all contacts
     func fetchAllContactFromServer(callback: @escaping CompletionHandler){
         let url = EndPoint.getAllContacts.path
@@ -46,13 +46,14 @@ class WebRequest: NSObject,Requestable {
             }
         }
     
+    // Update Contact
     func updateContactInfoToServer(body: ConactInfo?, callback: @escaping Handler) {
         guard let contact = body else {return}
         guard let contactId = contact.contactId else {return}
         let url = EndPoint.updateContactDetailWithContactId(contactId: contactId).path
         do {
             let parms = try body.asDictionary()
-            self.callApiToUpdate(methodType: .put, url: url, parameters: parms) { (data) in
+            self.callApi(methodType: .put, url: url, parameters: parms) { (data) in
                 switch data {
                 case .success(let response):
                     callback(.success(response))
@@ -66,11 +67,12 @@ class WebRequest: NSObject,Requestable {
         }
     }
     
+    // Create contact
     func createContactToServer(body: ConactInfo, callback: @escaping Handler) {
         let url = EndPoint.getAllContacts.path
         do {
             let parms = try body.asDictionary()
-            self.callApiToUpdate(methodType: .post, url: url, parameters: parms) { (data) in
+            self.callApi(methodType: .post, url: url, parameters: parms) { (data) in
                 switch data {
                 case .success(let response):
                     callback(.success(response))
@@ -80,7 +82,20 @@ class WebRequest: NSObject,Requestable {
             }
         }
         catch _ {
-            callback(.failure(500))
+            callback(.failure(500)) // hard
+        }
+    }
+    
+    // Delete Contact
+    func deleteContactFromServer(contactId: Int, callback: @escaping Handler) {
+        let url = EndPoint.deleteContactWithContactId(contactId: contactId).path
+        self.callApi(methodType: .delete, url: url, parameters: nil) { (data) in
+            switch data {
+            case .success(let resposne):
+                callback(.success(resposne))
+            case .failure(let responseCode):
+                callback(.failure(responseCode))
+            }
         }
     }
 }
@@ -92,15 +107,13 @@ extension WebRequest {
             switch data {
             case .success(let result):
                 callback(.success(result))
-                break
             case .failure(_):
                 callback(.failure(.apiFailure))
-                break
             }
         }
     }
     
-    private func callApiToUpdate(methodType: Method, url: String, parameters:[String:Any], callback: @escaping Handler){
+    private func callApi(methodType: Method, url: String, parameters:[String:Any]?, callback: @escaping Handler){
         request(method: methodType, url: url, params: parameters) { (data) in
             callback(data)
         }

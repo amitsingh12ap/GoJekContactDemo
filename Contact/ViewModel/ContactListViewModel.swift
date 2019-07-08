@@ -15,8 +15,6 @@ class ContactListViewModel: NSObject {
     var groupedContactList = [Character: [Contacts]]()
     
     func fetchContactList() {
-        guard let window = UIApplication.shared.keyWindow else { return  }
-        Utils.showLoading(toViewController: window)
         let webRequest = WebRequest()
         webRequest.fetchAllContactFromServer {[weak self](result) in
             guard let self = self else { return }
