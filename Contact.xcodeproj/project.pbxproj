@@ -31,7 +31,8 @@
 		1D404A4B22D1B0E300B98821 /* ContactDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D404A4A22D1B0E300B98821 /* ContactDetailViewModel.swift */; };
 		1D6CEB0622D2439900C98DE8 /* AddContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0522D2439900C98DE8 /* AddContactViewModel.swift */; };
 		1D6CEB0822D313F400C98DE8 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0722D313F400C98DE8 /* Loader.swift */; };
-		1D6CEB0A22D349A100C98DE8 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0922D349A100C98DE8 /* ApiTest.swift */; };
+		1D6CEB0C22D3A31C00C98DE8 /* WebRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0B22D3A31C00C98DE8 /* WebRequestTests.swift */; };
+		1D6CEB0E22D3A4B900C98DE8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D6CEB0D22D3A4B900C98DE8 /* Default-568h@2x.png */; };
 		1DB23CF322D1D99700450B2F /* CommonEditableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB23CF222D1D99700450B2F /* CommonEditableCell.swift */; };
 		1DB23CF522D1D9F100450B2F /* DeleteContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB23CF422D1D9F100450B2F /* DeleteContactCell.swift */; };
 		1DB23CF722D1E3BB00450B2F /* CommonProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB23CF622D1E3BB00450B2F /* CommonProtocols.swift */; };
@@ -94,7 +95,8 @@
 		1D404A4A22D1B0E300B98821 /* ContactDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewModel.swift; sourceTree = "<group>"; };
 		1D6CEB0522D2439900C98DE8 /* AddContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewModel.swift; sourceTree = "<group>"; };
 		1D6CEB0722D313F400C98DE8 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
-		1D6CEB0922D349A100C98DE8 /* ApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
+		1D6CEB0B22D3A31C00C98DE8 /* WebRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequestTests.swift; sourceTree = "<group>"; };
+		1D6CEB0D22D3A4B900C98DE8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1DB23CF222D1D99700450B2F /* CommonEditableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonEditableCell.swift; sourceTree = "<group>"; };
 		1DB23CF422D1D9F100450B2F /* DeleteContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteContactCell.swift; sourceTree = "<group>"; };
 		1DB23CF622D1E3BB00450B2F /* CommonProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonProtocols.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		1D0A5B1F22CE5EDC00A0DDC8 = {
 			isa = PBXGroup;
 			children = (
+				1D6CEB0D22D3A4B900C98DE8 /* Default-568h@2x.png */,
 				1D0A5B2A22CE5EDC00A0DDC8 /* Contact */,
 				1D0A5B3F22CE5EDF00A0DDC8 /* ContactTests */,
 				1D0A5B4A22CE5EDF00A0DDC8 /* ContactUITests */,
@@ -184,9 +187,9 @@
 		1D0A5B3F22CE5EDF00A0DDC8 /* ContactTests */ = {
 			isa = PBXGroup;
 			children = (
+				1D6CEB0B22D3A31C00C98DE8 /* WebRequestTests.swift */,
 				1D0A5B4022CE5EDF00A0DDC8 /* ContactTests.swift */,
 				1D0A5B4222CE5EDF00A0DDC8 /* Info.plist */,
-				1D6CEB0922D349A100C98DE8 /* ApiTest.swift */,
 			);
 			path = ContactTests;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D0A5B3622CE5EDF00A0DDC8 /* LaunchScreen.storyboard in Resources */,
+				1D6CEB0E22D3A4B900C98DE8 /* Default-568h@2x.png in Resources */,
 				1D0A5B3322CE5EDF00A0DDC8 /* Assets.xcassets in Resources */,
 				1D0A5B3122CE5EDC00A0DDC8 /* Main.storyboard in Resources */,
 			);
@@ -582,7 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D6CEB0A22D349A100C98DE8 /* ApiTest.swift in Sources */,
+				1D6CEB0C22D3A31C00C98DE8 /* WebRequestTests.swift in Sources */,
 				1D0A5B4122CE5EDF00A0DDC8 /* ContactTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -71,11 +71,11 @@ extension AddContactViewController: UITextFieldDelegate {
             return
         }
         else if textField.tag == 3 && !Utils.validateMobile(mobile: textField.text ?? "") {
-            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactMobileError)
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertMobileError)
             return
         }
         else if textField.tag == 4 && !Utils.validateEmailId(email: textField.text ?? "") {
-            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactEmailError)
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertEmailError)
             return
         }
         contactInfo[cellNameArray[textField.tag - 1]] = textField.text ?? ""

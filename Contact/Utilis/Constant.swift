@@ -31,8 +31,8 @@ struct Constants {
     static let kAlertContactCreateFailed = "Failed to create contact."
     
     static let kAlertAddContactEmptyError = "Please provide all details to add contact"
-    static let kAlertAddContactEmailError = "Please provide Valid Email Id"
-    static let kAlertAddContactMobileError = "Please provide Mobile Number"
+    static let kAlertEmailError = "Please provide Valid Email Id"
+    static let kAlertMobileError = "Please provide Mobile Number"
     
     static let kAlertDeleteContactError = "Failed to delete."
     

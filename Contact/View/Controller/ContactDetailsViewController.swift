@@ -80,12 +80,7 @@ extension ContactDetailsViewController: ContactDetailProtocol {
         Utils.removeSpinner(toView: self.view)
         if status {
             if isProfileModified {
-                weak var weakSelf = self
-                DispatchQueue.main.async {
-                    if weakSelf?.getProfileInfo().count == 2 {
-                        weakSelf?.contactDetailModel.updateContactWithInfo(mobileNumber: weakSelf?.getProfileInfo()[0] ?? "", emailID: weakSelf?.getProfileInfo()[1] ?? "" )
-                    }
-                }
+                self.contactDetailModel.updateContactWithInfo(mobileNumber: self.getProfileInfo()[0] , emailID: self.getProfileInfo()[1]  )
                 
                 self.changeEditButton(status: false)
             }
@@ -100,16 +95,13 @@ extension ContactDetailsViewController: ContactDetailProtocol {
     
     func didFinishByGettingContactInfo() {
         Utils.removeSpinner(toView: self.view)
-        DispatchQueue.main.async {
-            self.contactDetailTable.reloadData()
-        }
+        self.contactDetailTable.reloadData()
     }
     
     func failedToGetContactInfo(_ error: Failure) {
         Utils.removeSpinner(toView: self.view)
-        DispatchQueue.main.async {
-            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: error.message)
-        }
+        Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: error.message)
+        
     }
     
     func contactDeleted(_ status: Bool) {
@@ -214,8 +206,7 @@ extension ContactDetailsViewController: UpdateContact{
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients([contactDetailModel.getEmailId()])
-            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
-            
+            mail.setMessageBody("<p>Welcome to GoJek</p>", isHTML: true)
             present(mail, animated: true)
         } else {
              Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertNotSupportedMessage)
@@ -257,11 +248,11 @@ extension ContactDetailsViewController: UITextFieldDelegate {
             return
         }
         else if textField.tag == 1 && !Utils.validateMobile(mobile: textField.text ?? "") {
-            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactMobileError)
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertMobileError)
             return
         }
         else if textField.tag == 2 && !Utils.validateEmailId(email: textField.text ?? "") {
-            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertAddContactEmailError)
+            Utils.showAlert(toController: self, withTitle: Constants.kAlertErrorTitle, withMessage: Constants.kAlertEmailError)
             return
         }
         else {
